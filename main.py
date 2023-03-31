@@ -78,6 +78,9 @@ for sentence in Vico_sentences_corrected:
 
 #print(new_list)
 
+print(len(new_list))
+
+
 
 
 
@@ -94,6 +97,44 @@ for sentence in Vico_sentences_corrected:
     #for words in sentence:
         #for word in Pereira_concept_corrected:
             #commons = list(set(sentence) & set(Pereira_concept_corrected))
-
 #print(commons)
+
+# I am going to try something :
+
+
+new_list_subset=new_list[0:10]
+print(new_list_subset)
+
+Pereira_subset=Pereira_concept_corrected[0:10]
+
+print(Pereira_subset)
+
+for sentence in new_list_subset:
+    for words in sentence:
+        print(words) #this works!
+
+commons_subset=[]
+for sentence in new_list_subset:
+    for words in sentence:
+        for word in Pereira_subset:
+            if word in words:
+                print(word)    #Weird enough the art word is not in the sentences. one sentence finish with car and the other start with train maybe it combined them into "art"?
+    else:
+        print("NO!")
+
+
+import re
+
+str=(("an example word:cat!!","is that also gonna work"))
+
+for sentences in str:
+    for sentence in sentences:
+        match=re.search(r"word:",str)
+        if match:
+            print("found")
+        else:
+            print("did not find")
+
+
+
 
