@@ -127,13 +127,103 @@ import re
 
 str=(("an example word:cat!!","is that also gonna work"))
 
-for sentences in str:
-    for sentence in sentences:
-        match=re.search(r"word:",str)
-        if match:
-            print("found")
+
+
+
+print(new_list_subset)
+
+
+
+list2=[["hello","we","are","learning","python"],["oh","good","for","you","art"]]
+
+for list in list2:
+    new_string=(" ".join(list))
+
+
+print(new_string)
+
+
+
+list2=[["hello","we","are","learning","python"],["oh","good","for","you","art","attitude"]]
+
+
+
+
+
+for elems2 in list2:
+    for elem in elems2:
+        if elem in Pereira_subset:
+            print(elem)
         else:
-            print("did not find")
+            print("NAYY")
+
+
+print(Pereira_subset)
+
+
+for subset in new_list_subset:
+    for words in subset:
+        if words in Pereira_subset:
+            print(words)
+        else:
+            print("NAYYY")
+
+print(Pereira_subset)
+
+print(new_list_subset)
+
+print(len(new_list_subset))
+
+new_list_subset[8]=["You","bag","to","argument"]
+
+#for subset in new_list_subset:
+    #for words in subset:
+        #if words in Pereira_subset:
+            #print(words)
+        #else:
+            #print("NAYYY")   #OKAY THIS WORKED FOR THE SUBSET
+
+
+print(len(Pereira_concept_corrected)) #180
+print(len(new_list)) #1.018.367
+
+
+#count=0
+#for list in new_list:
+    #for words in list:
+        #if words in Pereira_concept_corrected:
+            #print(words)
+            #count=count+1
+        #else:
+            #print("NAYYY")
+
+#print(count) #362.295 words.
+
+
+
+#print(new_list)
+
+sent_ids=[]
+for sentence in Vico_sentences_corrected:
+    sent_ids.append(sentence[:sentence.index(',')])
+
+print(sent_ids[-1])  #Correct sentence ids' :)) it works!
+
+sent_text=[]
+for sentence in Vico_sentences_corrected:
+    sent_text.append(sentence[sentence.index(',')+1:].rstrip("\n"))
+
+print(sent_text[-1]) #Sentences! this works as well! :)
+
+
+import pandas as pd
+vico_df=pd.DataFrame.from_dict({"id":sent_ids, "text":sent_text})
+
+print(vico_df) #the dataframe works as well! :)
+
+
+
+
 
 
 
