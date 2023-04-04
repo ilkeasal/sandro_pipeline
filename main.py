@@ -46,16 +46,6 @@ Vico_sentences_corrected=read_file(vico_sentences)
 #print(Vico_sentences_corrected)
 
 
-str_one="I love Python Programming"
-
-str_two=("Python")
-
-str_three="Java"
-
-
-
-if str_two in str_one:
-    print("word found")  #this works for single words.
 
 
 
@@ -220,6 +210,58 @@ import pandas as pd
 vico_df=pd.DataFrame.from_dict({"id":sent_ids, "text":sent_text})
 
 print(vico_df) #the dataframe works as well! :)
+
+
+
+
+#TODO 1 :
+#Number of sentences each Pereira concepts occurs in:
+
+#for x, sentence in enumerate(Vico_sentences_corrected):
+    #for y, concept in enumerate(Pereira_concept_corrected):
+        #if concept in sentence:
+            #print(x,y,sentence,concept) #okay this works but the problem is it tells war is in the sentence whereas the word is not war but reWARding
+
+
+count=0
+concepts=[]
+count_of_concepts=[]
+for x, sentence in enumerate(new_list):
+    for y, concept in enumerate(Pereira_concept_corrected):
+        if concept in sentence:
+            #print(x,y,sentence,concept) #this works
+            concepts.append(concept)
+
+
+
+
+
+
+import numpy as np
+occured_concept_ids_Pereira=np.unique(concepts)
+
+print(occured_concept_ids_Pereira)
+print(len(occured_concept_ids_Pereira))  #177 of the Pereira concept words occured in the VICO sentences.
+
+
+
+for concept_words in Pereira_concept_corrected:
+    print(new_list.count(concept_words)) #not working. It keeps giving 0
+    print(concept_words)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
