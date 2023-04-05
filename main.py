@@ -245,9 +245,20 @@ print(len(occured_concept_ids_Pereira))  #177 of the Pereira concept words occur
 
 
 
-for concept_words in Pereira_concept_corrected:
-    print(new_list.count(concept_words)) #not working. It keeps giving 0
-    print(concept_words)
+#for concept_words in Pereira_concept_corrected:
+    #print(new_list.count(concept_words)) #not working. It keeps giving 0
+    #print(concept_words)
+count=0
+for x,sentence in enumerate(new_list):
+    for word in sentence:
+        for concepts in Pereira_concept_corrected:
+            if concepts in word:
+                print(concepts)
+                print(x)
+                print(sentence) #this works but, because it says king concept word is in the sentence because of the word "breaking"
+
+
+
 
 
 
