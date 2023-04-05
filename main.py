@@ -248,14 +248,58 @@ print(len(occured_concept_ids_Pereira))  #177 of the Pereira concept words occur
 #for concept_words in Pereira_concept_corrected:
     #print(new_list.count(concept_words)) #not working. It keeps giving 0
     #print(concept_words)
+
+
 count=0
-for x,sentence in enumerate(new_list):
-    for word in sentence:
-        for concepts in Pereira_concept_corrected:
-            if concepts in word:
-                print(concepts)
-                print(x)
-                print(sentence) #this works but, because it says king concept word is in the sentence because of the word "breaking"
+
+concept_words=[]
+#for x, sentence in enumerate(new_list):
+    #for words in sentence:
+        #for concept in Pereira_concept_corrected:
+            #if words == concept:
+                #concept_words.append(concept)
+                #count+=1
+                #print(sentence)
+                #print(concept)
+                #print(count)
+
+import pandas as pd
+
+
+#for concept in Pereira_concept_corrected:
+    #for sentence in new_list:
+        #for words in sentence:
+            #if concept==words:
+                #concept_words.append(concept) #WORKS
+
+
+import numpy as np
+#print(np.unique(concept_words))
+#print(len(np.unique(concept_words))) #177 of the Pereira concept words appear in the VICO sentences.
+
+
+
+#Initialize dictionaries to keep track of counts for every Pereira word
+
+total_occurances={concept:0 for concept in Pereira_concept_corrected}
+
+sentence_ids={concept:[] for concept in Pereira_concept_corrected}
+
+total_sentences={concept:0 for concept in Pereira_concept_corrected}
+
+#Looping Over VICO sentences and counting :
+
+for sentence in new_list:
+    for sentence_word in sentence:
+        for pereira_concepts in Pereira_concept_corrected:
+            if sentence_word == pereira_concepts:
+                total_occurances[pereira_concepts]+=1
+                sentence_ids[pereira_concepts].append(sentence_ids)
+
+
+
+print(total_occurances)
+
 
 
 
