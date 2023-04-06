@@ -289,16 +289,21 @@ total_sentences={concept:0 for concept in Pereira_concept_corrected}
 
 #Looping Over VICO sentences and counting :
 
-for sentence in new_list:
+for sentence in new_list: #new_list is tokenized version of Vico_sentences. I used .split() function for this.
     for sentence_word in sentence:
         for pereira_concepts in Pereira_concept_corrected:
             if sentence_word == pereira_concepts:
                 total_occurances[pereira_concepts]+=1
-                sentence_ids[pereira_concepts].append(sentence_ids)
+
+sentence_ids[sentence[:sentence.index(',')]].append(sentence_ids)
 
 
 
+
+import numpy as np
 print(total_occurances)
+
+print(np.unique(sentence_ids))
 
 
 
