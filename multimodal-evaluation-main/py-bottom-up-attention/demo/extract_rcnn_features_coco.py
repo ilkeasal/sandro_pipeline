@@ -49,7 +49,7 @@ if datatype == 'vist':
 elif datatype == 'coco2017':
     mykey = 'c'
 
-# Load VG Classes
+# Load VG Classes            #What is Load VG classes
 data_path = 'data/genome/1600-400-20'
 
 vg_classes = []

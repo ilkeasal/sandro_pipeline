@@ -10,7 +10,7 @@
 
 import os
 import json
-import yaml
+import yaml     #couldn't import this.
 import random
 import logging
 import argparse
@@ -26,9 +26,10 @@ import torch
 import torch.nn as nn
 import torch.distributed as dist
 
-from volta.config import BertConfig
-from volta.encoders import BertForVLTasks, BertForVLPreTraining
-from volta.task_utils import LoadDatasetEval, LoadLoss, ForwardModelsTrain, ForwardModelsVal
+from volta.config import BertConfig  #could not import this as well. #ASK THESE.
+from volta.encoders import BertForVLTasks, BertForVLPreTraining #could not import    #ASK THESE.
+from volta.task_utils import LoadDatasetEval, LoadLoss, ForwardModelsTrain, ForwardModelsVal #could not import  #ASK THESE.
+
 
 from scipy.stats.mstats import spearmanr
 
@@ -37,7 +38,7 @@ logging.basicConfig(
     datefmt="%m/%d/%Y %H:%M:%S",
     level=logging.INFO,
 )
-logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)         #This part will stay this way.
 
 """
 Read vocabulary bert_base_uncased and store it in list
@@ -48,10 +49,10 @@ content = bert_vocab.readlines()
 hfvocab = []
 for i in content:
     hfvocab.append(str(i.strip()))
-print('BERT vocabulary loaded! Len:', len(hfvocab))
+print('BERT vocabulary loaded! Len:', len(hfvocab))    #this part will also stay this way.
 
 """
-Read target vocabulary containing 2278 words from benchmarks
+Read target vocabulary containing 2278 words from benchmarks 
 """
 tvocab = open('/project/dmg_data/MMdata/unique-words-filtered-2278.txt','r')
 lines = tvocab.readlines()
@@ -59,9 +60,9 @@ myvocab = []
 for l in lines:
     l = l.strip()
     myvocab.append(str(l.lower()))
-print('My vocabulary loaded! Len:', len(myvocab))
+print('My vocabulary loaded! Len:', len(myvocab))    #this part will get replaced by my new vocabulary.
 
-bench_path = '/project/dmg_data/MMdata/benchmarks_filtered'
+bench_path = '/project/dmg_data/MMdata/benchmarks_filtered' #that I do not need.
 
 def load_benchmark(jsonfile):
     with open(jsonfile, 'r') as mybench:
@@ -74,7 +75,7 @@ def load_benchmark(jsonfile):
             listw1.append(w1)
             listw2.append(w2)
             listscores.append(score)
-    return listw1, listw2, listscores
+    return listw1, listw2, listscores     # I do not need this.
 
 def store_repr(matrix, representations):
     for w, l in matrix.items():
@@ -91,6 +92,10 @@ def store_repr(matrix, representations):
         representations[w].append(avg)
     return representations
 
+#I think this part will stay this way. But then I do not need anything extra to store the representations right? (although I remember Saandro saying I would need it)
+
+
+# I am here
 
 def parse_args():
     parser = argparse.ArgumentParser()
