@@ -106,7 +106,7 @@ def parse_args():
                         help="The config file which specified the model details.")
     # Output
     parser.add_argument("--output_dir", default="results", type=str,
-                        help="The output directory where the model checkpoints will be written.")
+                        help="The output directory where the model checkpoints will be written.") #I guess by checkpoints they mean the weights.
     parser.add_argument("--save_name", default="", type=str,
                         help="save name for training.")
     # Task
@@ -145,7 +145,7 @@ def parse_args():
 
     # Modality
     parser.add_argument("--modality", type=str, default="lang",
-                        help="specify modality stream you need repr. from: mm, lang, vis")
+                        help="specify modality stream you need repr. from: mm, lang, vis")   #might be important
 
     return parser.parse_args()
 
@@ -225,7 +225,7 @@ def main():
         print("  Batch size: ", batch_size)
 
     """
-    - num iters: will be number of sentences in dataset, i.e. around 113K
+    - num iters: will be number of sentences in dataset, i.e. around 113K    #what is the dataset1 again?
     - batch size: 1
     """
 
@@ -240,7 +240,7 @@ def main():
         word_representations_vv = {w: [] for w in myvocab}
     elif args.modality == "mm":
         word_matrices_mm = {w: [] for w in myvocab}
-        word_representations_mm = {w: [] for w in myvocab}
+        word_representations_mm = {w: [] for w in myvocab}    #myvocab is the filtered vocab.
 
     word_occurences = {w: 0 for w in myvocab}
 
@@ -289,7 +289,7 @@ def main():
                 word_occurences[word] += 1
                 """
                 this word occurrences count can be used at the end
-                to check the frequency of each word in the vocabulary
+                to check the frequency of each word in the vocabulary   #maybe I do not need that part right? Yes I think my target words will be different.
                 """
         # print(targlist)
         # print(targwords)
@@ -313,16 +313,21 @@ def main():
 
                 mylayer = int(args.targ_layer)
                 # with -1 we consider the last layer:
-                # e.g., for ViLBERT, it's the number 36 (len 37)
+                # e.g., for ViLBERT, it's the number 36 (len 37) #because it starts with 0
                 # e.g., for LXMERT, it's the number 33 (len 34)
 
-                pL = hid_s_T[mylayer]
+                pL = hid_s_T[mylayer] #I guess that is language layer
                 targ_sentence = pL[0] # only 0 works
 
-                pV = hid_s_V[mylayer]
+                pV = hid_s_V[mylayer] #I guess this is visual layer.
                 p_targ_img = pV[0] # only 0 works
                 imageX = p_targ_img[0] # the 'cls' of the image
-                                
+
+                #So here we might be giving the target sentence with the accompanying image to the target layer and get representations?
+
+
+
+
                 for idx, w in enumerate(targwords): # e.g. dog, hat, crocheted
                     lmat = []
                     pos = targlist[idx] # position or positions of target word
@@ -336,8 +341,12 @@ def main():
                         wordX = torch.cat(lmat)
 
                     """
-                    save representations!
+                    save representations!   #the representations are not saved I think so I need to save them. 
                     """
+
+                    #Do I need the code until here ?
+                    
+
                     if args.modality == "lang":
                         if torch.isnan(wordX).any() == True:
                             continue
@@ -345,7 +354,7 @@ def main():
                             word_matrices[w].append(wordX)
                     elif args.modality == "vis":
                         word_matrices_vv[w].append(imageX)
-                    elif args.modality == "mm":
+                    elif args.modality == "mm":  # I think I only need that one right? since both VisualBERT and LXMERT are multimodal?
                         mmX = imageX * wordX
                         word_matrices_mm[w].append(mmX)
 
@@ -363,19 +372,19 @@ def main():
     torch.cuda.empty_cache()
 
     if args.modality == "lang":
-        word_representations = store_repr(word_matrices, word_representations)
+        word_representations = store_repr(word_matrices, word_representations) #is store_repr a function ?
     elif args.modality == "vis":
         word_representations_vv = store_repr(word_matrices_vv, word_representations_vv)
     elif args.modality == "mm":
         word_representations_mm = store_repr(word_matrices_mm, word_representations_mm)
 
-    outall = open(args.output_dir+'/correlations_layers_'+args.modality+'.txt', 'a')
+    outall = open(args.output_dir+'/correlations_layers_'+args.modality+'.txt', 'a') #I guess this is the cor between the benchmarks and the modal.
     for filename in os.listdir(bench_path):
         if filename.endswith('.json'):
             targname = filename.split('.')[0]
             out = open(args.output_dir+'/'+targname+'_'+args.modality+'_'+
                     str(args.targ_layer)+'.txt', 'w')
-            out.write('idx,modality,layer,word1,word2,hum-sim,model-sim,freqw1,freqw2'+'\n')
+            out.write('idx,modality,layer,word1,word2,hum-sim,model-sim,freqw1,freqw2'+'\n') #yeah thats definitely about the cor btw the benchmarks and the model.
             w1s, w2s, GTscores = load_benchmark(bench_path+'/'+filename)
             print('Computing similarities for:',filename)
             Lscores, Vscores, MMscores = [],[],[]

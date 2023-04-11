@@ -46,7 +46,8 @@ Vico_sentences_corrected=read_file(vico_sentences)
 #print(Vico_sentences_corrected)
 
 
-
+for sentence in Vico_sentences_corrected:
+    print(sentence)
 
 
 sentence_try=("Lets see if it works")
@@ -69,10 +70,6 @@ for sentence in Vico_sentences_corrected:
 #print(new_list)
 
 print(len(new_list))
-
-
-
-
 
 
 
@@ -277,7 +274,7 @@ import numpy as np
 #print(np.unique(concept_words))
 #print(len(np.unique(concept_words))) #177 of the Pereira concept words appear in the VICO sentences.
 
-
+import nltk
 
 #Initialize dictionaries to keep track of counts for every Pereira word
 
@@ -287,6 +284,27 @@ sentence_ids={concept:[] for concept in Pereira_concept_corrected}
 
 total_sentences={concept:0 for concept in Pereira_concept_corrected}
 
+#Trying something similar to Sandro's Code :
+
+
+#for n, sentence in enumerate(new_list):
+    #for sentence_word in sentence :
+        #idx = (sentence[:sentence.index(',')]) #this gives the error of ',' is not in list.
+        #for pereira_concepts in Pereira_concept_corrected:
+            #if sentence_word == pereira_concepts:
+                #total_occurances[pereira_concepts]+=1
+                #idx[pereira_concepts].append(sentence_idx)
+
+
+
+
+
+
+
+
+
+
+
 #Looping Over VICO sentences and counting :
 
 for sentence in new_list: #new_list is tokenized version of Vico_sentences. I used .split() function for this.
@@ -294,16 +312,20 @@ for sentence in new_list: #new_list is tokenized version of Vico_sentences. I us
         for pereira_concepts in Pereira_concept_corrected:
             if sentence_word == pereira_concepts:
                 total_occurances[pereira_concepts]+=1
-
-sentence_ids[sentence[:sentence.index(',')]].append(sentence_ids)
+                sentence_ids[pereira_concepts].append(sentence[:sentence.index(',')]) #this works for word occurances I think but not for ids.
 
 
 
 
 import numpy as np
+print(sentence_ids)
 print(total_occurances)
 
-print(np.unique(sentence_ids))
+
+
+
+
+
 
 
 

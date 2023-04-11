@@ -2,21 +2,21 @@
 
 #Converting from a list to a string :
 
-list=["hello","we","are","learning","python"]
+#list=["hello","we","are","learning","python"]
 
-counting=["hello","we","python","good","you"]
+#counting=["hello","we","python","good","you"]
 
-list2=[["hello","we","are","learning","python"],["oh","good","for","you"]]
-
-
-count=0
-for words in list2:
-    count+=words.count(counting) for values in counting
-print(counting)
-print(count)
+#list2=[["hello","we","are","learning","python"],["oh","good","for","you"]]
 
 
-seasons=["Spring","Summer","Fall","Winter"]
+#count=0
+#for words in list2:
+    #count+=words.count(counting) for values in counting
+#print(counting)
+#print(count)
+
+
+#seasons=["Spring","Summer","Fall","Winter"]
 
 
 
@@ -45,6 +45,39 @@ seasons=["Spring","Summer","Fall","Winter"]
 #for x, count in enumerate(counting):
     #print(list.count(count))
     #print(count)
+
+
+
+import pandas as pd
+import numpy as np
+
+#For loop in a DataFrame :
+
+df = pd.DataFrame({"age":[24,28],"name":["Ilke","Youssef"]})
+
+print(df)
+
+#for column_name in df:
+    #print(column_name)
+
+for index, row in df.iterrows():
+    print(index)
+    print(row)
+
+
+home="I am going HOME"
+
+print(home.lower())
+
+my_dict={"home":"Amsterdam", "time":"IDK"}
+
+
+#.items() function
+print(my_dict.items()) #returns the key value pairs of the dictionary.
+
+
+
+#I am at def parse_args
 
 
 
