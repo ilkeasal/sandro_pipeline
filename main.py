@@ -12,7 +12,7 @@ except AttributeError:
     pass
 else:
     ssl._create_default_https_context = _create_unverified_https_context
-nltk.download('punkt')
+#nltk.download('punkt')
 
 from nltk import word_tokenize
 
@@ -62,28 +62,28 @@ Vico_sentences_corrected=read_file(vico_sentences)
 #     print(sentence)
 
 
-sentence_try=("Lets see if it works")
+#sentence_try=("Lets see if it works")
 
-sentence_split=(sentence_try.split()) #with this sentences became words.
+#sentence_split=(sentence_try.split()) #with this sentences became words.
 
-print(sentence_split)
-words_try=["I","think","Lets","works","see"]
+#print(sentence_split)
+#words_try=["I","think","Lets","works","see"]
 
-common_words=list(set(sentence_split)&set(words_try)) #and this way I can find the common words.
+#common_words=list(set(sentence_split)&set(words_try)) #and this way I can find the common words.
 
 #for sentence in Vico_sentences_corrected:
     #sentences =Vico_sentences_corrected.split() #this does not work.
 
-new_list =[]
+#new_list =[]
 
-for sentence in Vico_sentences_corrected:
-    new_list.append(sentence.split())
+#for sentence in Vico_sentences_corrected:
+    #new_list.append(sentence.split())
 
 #print(new_list)
 
-print(len(new_list))
+#print(len(new_list))
 
-print(word_tokenize(Vico_sentences_corrected[0]))
+#print(word_tokenize(Vico_sentences_corrected[0]))
 #
 #
 # #print(new_list)
@@ -233,13 +233,15 @@ print(word_tokenize(Vico_sentences_corrected[0]))
 #
 #
 # count=0
-# concepts=[]
-# count_of_concepts=[]
+# Pereira_Vico_177_Concepts=[]
+# # count_of_concepts=[]
 # for x, sentence in enumerate(new_list):
-#     for y, concept in enumerate(Pereira_concept_corrected):
-#         if concept in sentence:
-#             #print(x,y,sentence,concept) #this works
-#             concepts.append(concept)
+#      for y, concept in enumerate(Pereira_concept_corrected):
+#       if concept in sentence:
+# #             print(x,y,sentence,concept) #this works
+#        Pereira_Vico_177_Concepts.append(concept)
+#
+# print(Pereira_Vico_177_Concepts)
 #
 #
 #
@@ -293,6 +295,7 @@ print(word_tokenize(Vico_sentences_corrected[0]))
 total_occurances={concept:0 for concept in Pereira_concept_corrected}
 sentence_ids={concept:[] for concept in Pereira_concept_corrected}
 total_sentences={concept:0 for concept in Pereira_concept_corrected}
+
 #
 # #Trying something similar to Sandro's Code :
 #
@@ -325,15 +328,58 @@ for line in Vico_sentences_corrected: #new_list is tokenized version of Vico_sen
         for pereira_concepts in Pereira_concept_corrected:
             if sentence_word == pereira_concepts:
                 total_occurances[pereira_concepts]+=1
-                sentence_ids[pereira_concepts].append(sentence_id) #this works for word occurances I think but not for ids.
+                sentence_ids[pereira_concepts].append(sentence_id) #works for ids and word_occurances
+
+#print(sentence_ids)
+print(total_occurances) #this is the Frequency Distribution
+
+import numpy as np
+
+#unique_ids=np.unique(sentence_ids)
+#print(unique_ids)
 print(sentence_ids)
-#
-#
-#
-#
+
+Vico_subset_sentence_ids= sentence_ids.values()
+print(Vico_subset_sentence_ids) #okay this is the subset of Vico sentence ids.
+
+#now I need to select VİCO sentences with this ids and this will be the subset of Vico_subset_sentences.
+
+
+
+
 # import numpy as np
 # print(sentence_ids)
 # print(total_occurances)
+
+import pandas as pd
+
+Vico_Pereira_df =pd.DataFrame.from_dict({"concept_occurances":total_occurances, "sentence_ids":sentence_ids})
+
+# print(Vico_Pereira_df["concept_occurances"]["weather"]) #this is to access the specific key value from concept_occurances / weather.
+
+
+# tokenized_Vico_lines=[]
+# for line in Vico_sentences_corrected:
+#     tokenized_Vico_lines.append(word_tokenize(line))
+
+
+
+#Pereira_Vico_177_Concepts=[]
+
+# for concept in Pereira_concept_corrected:
+#     for sentence in tokenized_Vico_lines:
+#          for words in sentence:
+#             if concept==words:
+#                 Pereira_Vico_177_Concepts.append((concept)) #WORKS #177 Pereira_concepts.
+#
+# print(np.unique(Pereira_Vico_177_Concepts))
+# print(len(np.unique(Pereira_Vico_177_Concepts))) #alright these are the unique filtered words. There are 177 of them.
+
+
+#Now I need to create a subset of VICO that contain the sentence_ids.
+
+
+
 
 
 

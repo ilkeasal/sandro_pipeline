@@ -26,6 +26,8 @@ import torch
 import torch.nn as nn
 import torch.distributed as dist
 
+
+
 from volta.config import BertConfig  #could not import this as well. #ASK THESE.
 from volta.encoders import BertForVLTasks, BertForVLPreTraining #could not import    #ASK THESE.
 from volta.task_utils import LoadDatasetEval, LoadLoss, ForwardModelsTrain, ForwardModelsVal #could not import  #ASK THESE.
@@ -470,3 +472,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
