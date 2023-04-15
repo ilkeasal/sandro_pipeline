@@ -283,14 +283,25 @@ print(vico_df)
 
 print(Vico_subset_sentence_ids)
 
+import pandas as pd
 
 
-
-for ids in Vico_subset_sentence_ids:
-    for id in ids:
+ids_indexes=[]
+sentences_ids=[]
+for x,ids in enumerate(Vico_subset_sentence_ids):
+    for y, id in enumerate(ids):
         if id in vico_df["id"].values:
             print(id) #okay that works
-            print(vico_df.query("id==id")["text"]) #this part is not working for selecting the sentences based on the ids.
+            ids_indexes.append(y)
+            sentences_ids.append(vico_df.iloc[y]) #this works! that gives me the ids and the sentences :) but now I need to make it a dataFrame.
+
+
+
+
+print(ids_indexes)
+
+print(sentences_ids)
+
 
 
 
