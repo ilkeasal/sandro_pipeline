@@ -27,7 +27,7 @@ if __name__ == '__main__':
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
-vico_sentences=open("/Users/ilkeasal/Desktop/CLC/Sandro_Github/multimodal-evaluation-main/data/VICO.txt","r").readlines()
+vico_sentences=open("/Users/ilkeasal/Desktop/Internship_project/multimodal-evaluation-main/data/VICO.txt","r").readlines()
 
 #print(vico_sentences.readlines())
 
@@ -35,7 +35,7 @@ vico_sentences=open("/Users/ilkeasal/Desktop/CLC/Sandro_Github/multimodal-evalua
 
 #print(vico_sentences)
 
-Pereira_concept_words=open("/Users/ilkeasal/Desktop/CLC/Sandro_Github/multimodal-evaluation-main/data/stimuli_180concepts copy.txt","r").readlines()
+Pereira_concept_words=open("/Users/ilkeasal/Desktop/Internship_project/multimodal-evaluation-main/data/stimuli_180concepts copy.txt","r").readlines()
 
 
 #now I will create a function to get rid of the '\n'
@@ -219,7 +219,7 @@ total_sentences={concept:0 for concept in Pereira_concept_corrected}
 
 # #Looping Over VICO sentences and counting :
 #
-for line in Vico_sentences_corrected[:5000]: #new_list is tokenized version of Vico_sentences. I used .split() function for this.
+for line in Vico_sentences_corrected[:5000]:
     tokenized_line = word_tokenize(line)
     sentence_id = tokenized_line[:tokenized_line.index(',')]
     sentence_text = tokenized_line[tokenized_line.index(',')+1:]
@@ -257,21 +257,21 @@ Vico_Pereira_df =pd.DataFrame.from_dict({"concept_occurances":total_occurances, 
 # print(Vico_Pereira_df["concept_occurances"]["weather"]) #this is to access the specific key value from concept_occurances / weather.
 
 
-# tokenized_Vico_lines=[]
-# for line in Vico_sentences_corrected:
-#     tokenized_Vico_lines.append(word_tokenize(line))
+tokenized_Vico_lines=[]
+for line in Vico_sentences_corrected:
+    tokenized_Vico_lines.append(word_tokenize(line))
 
 
 
-#Pereira_Vico_177_Concepts=[]
+Pereira_Vico_177_Concepts=[]
 
-# for concept in Pereira_concept_corrected:
-#     for sentence in tokenized_Vico_lines:
-#          for words in sentence:
-#             if concept==words:
-#                 Pereira_Vico_177_Concepts.append((concept)) #WORKS #177 Pereira_concepts.
+for concept in Pereira_concept_corrected:
+    for sentence in tokenized_Vico_lines:
+         for words in sentence:
+            if concept==words:
+                Pereira_Vico_177_Concepts.append((concept)) #WORKS #177 Pereira_concepts.
 #
-# print(np.unique(Pereira_Vico_177_Concepts))
+print(np.unique(Pereira_Vico_177_Concepts))
 # print(len(np.unique(Pereira_Vico_177_Concepts))) #alright these are the unique filtered words. There are 177 of them.
 
 
@@ -279,32 +279,36 @@ Vico_Pereira_df =pd.DataFrame.from_dict({"concept_occurances":total_occurances, 
 
 
 
-print(vico_df)
-
-print(Vico_subset_sentence_ids)
+# print(vico_df)
+#
+# print(Vico_subset_sentence_ids)
 
 import pandas as pd
 
 
-ids_indexes=[]
-sentences_ids=[]
-for x,ids in enumerate(Vico_subset_sentence_ids):
-    for y, id in enumerate(ids):
-        if id in vico_df["id"].values:
-            print(id) #okay that works
-            ids_indexes.append(y)
-            sentences_ids.append(vico_df.iloc[y]) #this works! that gives me the ids and the sentences :) but now I need to make it a dataFrame.
+# ids_indexes=[]
+# sentences_ids=[]
+# for x,ids in enumerate(Vico_subset_sentence_ids):
+#     for y, id in enumerate(ids):
+#         if id in vico_df["id"].values:
+#             print(id) #okay that works
+#             ids_indexes.append(y)
+#             sentences_ids.append(vico_df.iloc[y]) #this works! that gives me the ids and the sentences :) but now I need to make it a dataFrame.
+#
+#
+#
+#
+# print(ids_indexes)
+#
+# print(sentences_ids)
 
 
 
+unique_concept_words=(np.unique(Pereira_Vico_177_Concepts)) #okay this works I need to save it as a file. Thats missing.
 
-print(ids_indexes)
+import numpy as np
 
-print(sentences_ids)
-
-
-
-
+np.savetxt("ConceptWords.csv",unique_concept_words,delimiter=",",fmt="%s")
 
 
 
