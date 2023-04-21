@@ -219,7 +219,7 @@ total_sentences={concept:0 for concept in Pereira_concept_corrected}
 
 # #Looping Over VICO sentences and counting :
 #
-for line in Vico_sentences_corrected[:5000]:
+for line in Vico_sentences_corrected:
     tokenized_line = word_tokenize(line)
     sentence_id = tokenized_line[:tokenized_line.index(',')]
     sentence_text = tokenized_line[tokenized_line.index(',')+1:]
@@ -234,25 +234,39 @@ print(total_occurances) #this is the Frequency Distribution
 
 import numpy as np
 
+
+
 #unique_ids=np.unique(sentence_ids)
 #print(unique_ids)
-print(sentence_ids)
+# print(sentence_ids)
 
-Vico_subset_sentence_ids= sentence_ids.values() #these are the sentence ids in which the Pereira words appeared.
-print(Vico_subset_sentence_ids) #okay this is the subset of Vico sentence ids.
+Vico_subset_sentence_ids=sentence_ids.values() #these are the sentence ids in which the Pereira words appeared.
+#print(Vico_subset_sentence_ids) #okay this is the subset of Vico sentence ids.
 
 #now I need to select VİCO sentences with this ids and this will be the subset of Vico_subset_sentences.
 
+#print(type(Vico_subset_sentence_ids))
+
+#print(Vico_subset_sentence_ids_listed)
+
+Vico_subset_sentence_ids_listed=list(Vico_subset_sentence_ids)
+
+print(Vico_subset_sentence_ids_listed[:10])
+print(Vico_subset_sentence_ids_listed[-10:])
 
 
 
-# import numpy as np
-# print(sentence_ids)
-# print(total_occurances)
 
-import pandas as pd
 
-Vico_Pereira_df =pd.DataFrame.from_dict({"concept_occurances":total_occurances, "sentence_ids":sentence_ids})
+
+
+
+#import numpy as np
+#print(sentence_ids)
+#print(total_occurances)
+
+
+Vico_Pereira_df=pd.DataFrame.from_dict({"concept_occurances":total_occurances, "sentence_ids":sentence_ids})
 
 # print(Vico_Pereira_df["concept_occurances"]["weather"]) #this is to access the specific key value from concept_occurances / weather.
 
@@ -263,15 +277,15 @@ for line in Vico_sentences_corrected:
 
 
 
-Pereira_Vico_177_Concepts=[]
-
-for concept in Pereira_concept_corrected:
-    for sentence in tokenized_Vico_lines:
-         for words in sentence:
-            if concept==words:
-                Pereira_Vico_177_Concepts.append((concept)) #WORKS #177 Pereira_concepts.
+# Pereira_Vico_177_Concepts=[]
 #
-print(np.unique(Pereira_Vico_177_Concepts))
+# for concept in Pereira_concept_corrected:
+#     for sentence in tokenized_Vico_lines:
+#          for words in sentence:
+#             if concept==words:
+#                 Pereira_Vico_177_Concepts.append((concept)) #WORKS #177 Pereira_concepts.
+# #
+# print(np.unique(Pereira_Vico_177_Concepts))
 # print(len(np.unique(Pereira_Vico_177_Concepts))) #alright these are the unique filtered words. There are 177 of them.
 
 
@@ -294,34 +308,45 @@ import pandas as pd
 #             print(id) #okay that works
 #             ids_indexes.append(y)
 #             sentences_ids.append(vico_df.iloc[y]) #this works! that gives me the ids and the sentences :) but now I need to make it a dataFrame.
+# #
 #
-#
-#
-#
+# #
+# #
 # print(ids_indexes)
 #
 # print(sentences_ids)
 
 
 
-unique_concept_words=(np.unique(Pereira_Vico_177_Concepts)) #okay this works I need to save it as a file. Thats missing.
-
-import numpy as np
-
-np.savetxt("ConceptWords.csv",unique_concept_words,delimiter=",",fmt="%s")
+# unique_concept_words=(np.unique(Pereira_Vico_177_Concepts)) #okay this works I need to save it as a file. Thats missing.
+#
+# import numpy as np
 
 
 
 
 
+# np.savetxt("Vicosubset.txt",Vico_subset_sentence_ids_listed,delimiter=",",fmt="%s")
+
+
+
+from collections.abc import Iterable
+def flatten_list(items,ignore_types=(str,bytes)):
+    for v in items:
+        if isinstance(v,Iterable) and not isinstance(v, ignore_types):
+            yield from flatten_list(v)
+        else:
+            yield v  #this is a function to flatten the Vico_subset_sentence_ids_listed list so that I can save it as csv finally!
 
 
 
 
 
+flattened_Vicosubset_sentence_ids=list(flatten_list(Vico_subset_sentence_ids_listed))
 
 
 
+np.savetxt("Vicosubset.csv",flattened_Vicosubset_sentence_ids,delimiter=",",fmt="%s")
 
 
 

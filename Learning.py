@@ -53,7 +53,7 @@ import numpy as np
 
 #For loop in a DataFrame :
 
-df = pd.DataFrame({"age":[24,28],"name":["Ilke","Youssef"]})
+df = pd.DataFrame({"age":[24,28],"name":["Ilke","Firfir"]})
 
 print(df)
 
@@ -81,9 +81,24 @@ print(my_dict.items()) #returns the key value pairs of the dictionary.
 
 
 
+trial_list=[[['train-72157623606067692-4426712667-3'], ['train-72157623392052135-4391219004-3']], ['test-72157625830823704-5357539959-4'], ['test-72157629972234013-7145640279-2'], ['test-72157630655378016-7605582080-4'], [['test-72157600124891007-472195090-4'], ['test-72157623213948893-4326098467-4'], ['test-72157594326560194-268647884-3']], ['test-72157623145509240-4247704215-4'], ['test-1443082-66884411-4'], ['test-72157625671844609-5344790579-1']]
+
+print(type(trial_list))
+
+# np.savetxt("TrialFileeee.csv",trial_list,delimiter=",",fmt="%s")
+
+# print(trial_list[-3:])
 
 
+from collections.abc import Iterable
+def flatten_list(items,ignore_types=(str,bytes)):
+    for v in items:
+        if isinstance(v,Iterable) and not isinstance(v, ignore_types):
+            yield from flatten_list(v)
+        else:
+            yield v
 
 
+flattened_list=list(flatten_list(trial_list))
 
-
+print(flattened_list)
