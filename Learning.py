@@ -102,3 +102,8 @@ def flatten_list(items,ignore_types=(str,bytes)):
 flattened_list=list(flatten_list(trial_list))
 
 print(flattened_list)
+
+import numpy as np
+print(len(np.unique(flattened_list)))
+
+print(len(flattened_list))

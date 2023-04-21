@@ -346,7 +346,17 @@ flattened_Vicosubset_sentence_ids=list(flatten_list(Vico_subset_sentence_ids_lis
 
 
 
-np.savetxt("Vicosubset.csv",flattened_Vicosubset_sentence_ids,delimiter=",",fmt="%s")
+
+import numpy as np
+# print(len(np.unique(flattened_Vicosubset_sentence_ids)))
+# print(len(flattened_Vicosubset_sentence_ids))
+
+
+flattened_Vicosubset_sentence_ids_unique=np.unique(flattened_Vicosubset_sentence_ids)
+
+np.savetxt("Unique_Vicosubset_sentenceids.csv",flattened_Vicosubset_sentence_ids_unique,delimiter=",",fmt="%s")
+
+# np.savetxt("Vicosubset.csv",flattened_Vicosubset_sentence_ids,delimiter=",",fmt="%s")
 
 
 
