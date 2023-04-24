@@ -29,7 +29,7 @@ if __name__ == '__main__':
 
 vico_sentences=open("/Users/ilkeasal/Desktop/Internship_project/multimodal-evaluation-main/data/VICO.txt","r").readlines()
 
-#print(vico_sentences.readlines())
+
 
 #print(len(vico_sentences.readlines())) #1.018.367 #sentences
 
@@ -58,21 +58,6 @@ Vico_sentences_corrected=read_file(vico_sentences)
 #print(Vico_sentences_corrected)
 
 
-# for sentence in Vico_sentences_corrected:
-#     print(sentence)
-
-
-#sentence_try=("Lets see if it works")
-
-#sentence_split=(sentence_try.split()) #with this sentences became words.
-
-#print(sentence_split)
-#words_try=["I","think","Lets","works","see"]
-
-#common_words=list(set(sentence_split)&set(words_try)) #and this way I can find the common words.
-
-#for sentence in Vico_sentences_corrected:
-    #sentences =Vico_sentences_corrected.split() #this does not work.
 
 #new_list =[]
 
@@ -116,28 +101,9 @@ Vico_sentences_corrected=read_file(vico_sentences)
 #
 #
 
-#
-#
-#
-#
 
-#
-#
-
-#
-#
-
-#
-
-#
-#
 # print(len(Pereira_concept_corrected)) #180
 # print(len(new_list)) #1.018.367
-#
-#
-
-#
-#
 #
 
 #
@@ -159,11 +125,10 @@ vico_df=pd.DataFrame.from_dict({"id":sent_ids, "text":sent_text})
 
 print(vico_df) #the dataframe works as well! :)
 #
-#
-#
-#
-#
-#
+
+# So far the code runs fast.
+
+
 # count=0
 # Pereira_Vico_177_Concepts=[]
 # # count_of_concepts=[]
@@ -174,12 +139,8 @@ print(vico_df) #the dataframe works as well! :)
 #        Pereira_Vico_177_Concepts.append(concept)
 #
 # print(Pereira_Vico_177_Concepts)
-#
-#
-#
-#
-#
-#
+
+
 # import numpy as np
 # occured_concept_ids_Pereira=np.unique(concepts)
 #
@@ -187,10 +148,7 @@ print(vico_df) #the dataframe works as well! :)
 # print(len(occured_concept_ids_Pereira))  #177 of the Pereira concept words occured in the VICO sentences.
 #
 #
-#
-# #for concept_words in Pereira_concept_corrected:
-#     #print(new_list.count(concept_words)) #not working. It keeps giving 0
-#     #print(concept_words)
+
 #
 #
 
@@ -231,6 +189,14 @@ for line in Vico_sentences_corrected:
 
 #print(sentence_ids)
 print(total_occurances) #this is the Frequency Distribution
+print(type(total_occurances))
+
+import json
+import numpy as np
+
+
+with open("freq_vocab_Pereira.txt","w") as total_occur:
+    total_occur.write(json.dumps(total_occurances))
 
 import numpy as np
 
@@ -251,8 +217,8 @@ Vico_subset_sentence_ids=sentence_ids.values() #these are the sentence ids in wh
 
 Vico_subset_sentence_ids_listed=list(Vico_subset_sentence_ids)
 
-print(Vico_subset_sentence_ids_listed[:10])
-print(Vico_subset_sentence_ids_listed[-10:])
+# print(Vico_subset_sentence_ids_listed[:10])
+# print(Vico_subset_sentence_ids_listed[-10:])
 
 
 
@@ -271,9 +237,9 @@ Vico_Pereira_df=pd.DataFrame.from_dict({"concept_occurances":total_occurances, "
 # print(Vico_Pereira_df["concept_occurances"]["weather"]) #this is to access the specific key value from concept_occurances / weather.
 
 
-tokenized_Vico_lines=[]
-for line in Vico_sentences_corrected:
-    tokenized_Vico_lines.append(word_tokenize(line))
+# tokenized_Vico_lines=[]
+# for line in Vico_sentences_corrected:
+#     tokenized_Vico_lines.append(word_tokenize(line))
 
 
 
@@ -300,23 +266,26 @@ for line in Vico_sentences_corrected:
 import pandas as pd
 
 
-# ids_indexes=[]
-# sentences_ids=[]
-# for x,ids in enumerate(Vico_subset_sentence_ids):
-#     for y, id in enumerate(ids):
-#         if id in vico_df["id"].values:
-#             print(id) #okay that works
-#             ids_indexes.append(y)
-#             sentences_ids.append(vico_df.iloc[y]) #this works! that gives me the ids and the sentences :) but now I need to make it a dataFrame.
-# #
+ids_indexes=[]
+sentences_ids=[]
+for x,ids in enumerate(Vico_subset_sentence_ids):
+    for y, id in enumerate(ids):
+        if id in vico_df["id"].values:
+            ids_indexes.append(y)
+            sentences_ids.append(vico_df.iloc[y])
 #
-# #
-# #
+#
+#
+#
 # print(ids_indexes)
 #
-# print(sentences_ids)
+print(sentences_ids) # I should get the output of this part but for some reason it started to run forever.
+print(type(sentences_ids))
 
+sentence_ids_texts_df=pd.DataFrame(sentences_ids)
+# print(sentence_ids_texts_df) #okay that works. It makes it a dataframe!
 
+sentence_ids_texts_df.to_csv("sentence_ids_texts_df.csv",index=False) #with this it runs forever.
 
 # unique_concept_words=(np.unique(Pereira_Vico_177_Concepts)) #okay this works I need to save it as a file. Thats missing.
 #
@@ -330,31 +299,31 @@ import pandas as pd
 
 
 
-from collections.abc import Iterable
-def flatten_list(items,ignore_types=(str,bytes)):
-    for v in items:
-        if isinstance(v,Iterable) and not isinstance(v, ignore_types):
-            yield from flatten_list(v)
-        else:
-            yield v  #this is a function to flatten the Vico_subset_sentence_ids_listed list so that I can save it as csv finally!
+# from collections.abc import Iterable
+# def flatten_list(items,ignore_types=(str,bytes)):
+#     for v in items:
+#         if isinstance(v,Iterable) and not isinstance(v, ignore_types):
+#             yield from flatten_list(v)
+#         else:
+#             yield v  #this is a function to flatten the Vico_subset_sentence_ids_listed list so that I can save it as csv finally!
+#
+#
+#
+#
+#
+# flattened_Vicosubset_sentence_ids=list(flatten_list(Vico_subset_sentence_ids_listed))
+#
+#
+#
+#
+# import numpy as np
+# # print(len(np.unique(flattened_Vicosubset_sentence_ids)))
+# # print(len(flattened_Vicosubset_sentence_ids))
+#
+#
+# flattened_Vicosubset_sentence_ids_unique=np.unique(flattened_Vicosubset_sentence_ids)
 
-
-
-
-
-flattened_Vicosubset_sentence_ids=list(flatten_list(Vico_subset_sentence_ids_listed))
-
-
-
-
-import numpy as np
-# print(len(np.unique(flattened_Vicosubset_sentence_ids)))
-# print(len(flattened_Vicosubset_sentence_ids))
-
-
-flattened_Vicosubset_sentence_ids_unique=np.unique(flattened_Vicosubset_sentence_ids)
-
-np.savetxt("Unique_Vicosubset_sentenceids.csv",flattened_Vicosubset_sentence_ids_unique,delimiter=",",fmt="%s")
+# np.savetxt("Unique_Vicosubset_sentenceids.csv",flattened_Vicosubset_sentence_ids_unique,delimiter=",",fmt="%s")
 
 # np.savetxt("Vicosubset.csv",flattened_Vicosubset_sentence_ids,delimiter=",",fmt="%s")
 

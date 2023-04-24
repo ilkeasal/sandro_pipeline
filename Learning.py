@@ -107,3 +107,13 @@ import numpy as np
 print(len(np.unique(flattened_list)))
 
 print(len(flattened_list))
+
+np.random.seed(123)
+
+x=np.random.randint(9,size=(3,3))
+
+print(x)
+
+print(x.item(0,1))
+
+import json
