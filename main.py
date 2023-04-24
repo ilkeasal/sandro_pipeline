@@ -177,6 +177,8 @@ total_sentences={concept:0 for concept in Pereira_concept_corrected}
 
 # #Looping Over VICO sentences and counting :
 #
+
+
 for line in Vico_sentences_corrected:
     tokenized_line = word_tokenize(line)
     sentence_id = tokenized_line[:tokenized_line.index(',')]
@@ -200,7 +202,7 @@ with open("freq_vocab_Pereira.txt","w") as total_occur:
 
 import numpy as np
 
-
+#its working till here.
 
 #unique_ids=np.unique(sentence_ids)
 #print(unique_ids)
